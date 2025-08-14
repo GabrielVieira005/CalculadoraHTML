@@ -41,10 +41,11 @@ body{
 
 .button{
     border: none;
-    border-radius: 50%;
+    border-radius: 40%;
     padding: 20px;
     font-size:1.5rem;
     cursor: pointer;
+    font-style: italic;
 }
 
 .button.numero{

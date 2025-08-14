@@ -20,7 +20,17 @@ function escolherOperador(){
     const botoes =document.getElementsByClassName("operador");
     for(let i=0;i<botoes.length;i++){
         botoes[i].addEventListener("click", function(event){
-            printarInput(event.target.innerHTML)
+            const operador= event.target.innerHTML
+
+            if(operador=== "x²"){
+                elevar()
+            }else if(operador=== "%"){
+                porcentagem()
+            }else if(operador=== "="){
+                calculo()
+            }else{
+                printarInput(operador)
+            }
         })
     }
 }
@@ -32,7 +42,7 @@ function apagar(){
             const textoBotao = event.target.innerHTML;
             if(textoBotao === "CE"){
                 limparTudo()
-            }else if (textoBotao === "<-x") {
+            }else if (textoBotao === "C") {
                 apagarUltimo();
             }
         })
@@ -58,13 +68,26 @@ function limparTudo() {
 function calculo(){
     const display=document.getElementById("display");
     let valor= display.value;
-   console.log(eval(valor.toString()))
 
-   
+    valor=valor.replace(/×/g, '*')
+    valor=valor.replace(/÷/g, '/')
+
+    display.value=eval(valor)
 }
+
 function porcentagem(){
+    const display= document.getElementById("display")
+    let valor= parseFloat(display.value)
 
+    display.value =  valor/100
 }
+
+function elevar(){
+    const display= document.getElementById("display")
+    let valor= display.value
+    display.value= valor*valor
+}
+
 
 document.addEventListener("DOMContentLoaded", function (){
     escolherNumero()
