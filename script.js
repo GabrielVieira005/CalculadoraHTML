@@ -68,41 +68,26 @@ function calculo(){
     const display=document.getElementById("display");
     let valor= display.value;
 
-    // Verificar se o valor não está vazio ou é apenas operadores
-    if(!valor || valor.trim() === "" || /^[\+\-\*\/\×÷]+$/.test(valor)) {
-        display.value = "Erro";
-        return;
-    }
 
     valor=valor.replace(/×/g, '*')
     valor=valor.replace(/÷/g, '/')
 
-    try {
-        let resultado = eval(valor);
-        
-        // Verificar se o resultado é um número válido
-        if(isNaN(resultado) || !isFinite(resultado)) {
-            display.value = "Erro";
-        } else {
-            // Arredondar para evitar problemas de ponto flutuante
-            display.value = Math.round(resultado * 100000000) / 100000000;
-        }
-    } catch(error) {
-        display.value = "Erro";
-    }
+    let resultado = eval(valor);
+   
+    display.value= resultado
 }
 
 function porcentagem(){
-    const display= document.getElementById("display")
-    let valor= parseFloat(display.value)
+   const display = document.getElementById("display");
+    let expressao = display.value;
+    let regex = /(-?\d+\.?\d*)$/;
+    let match = expressao.match(regex);
+    let ultimoNumero = match[1];
+    let numero = parseFloat(ultimoNumero);
+    let resultado = numero/100;    
     
-    // Verificar se o valor é um número válido
-    if(isNaN(valor)) {
-        display.value = "Erro";
-        return;
-    }
-    
-    display.value = valor/100
+  
+    display.value = expressao.replace(regex, resultado.toString());
 }
 
 function elevar(){
@@ -113,7 +98,7 @@ function elevar(){
     let ultimoNumero = match[1];
     let numero = parseFloat(ultimoNumero);
     let resultado = Math.pow(numero, 2);    
-    resultado = Math.round(resultado * 100000000) / 100000000;
+    
   
     display.value = expressao.replace(regex, resultado.toString());
 }
