@@ -14,7 +14,7 @@ body{
     text-align: center;
     width: 400px;
     position: absolute;
-    height: 545px;
+    height: 600px;
     top: 50px;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,6 @@ body{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-
 }
 
 .button{
@@ -51,6 +50,11 @@ body{
 .button.numero{
     background-color: #333;
     color: white;
+}
+
+#calculo {
+   grid-column: span 2;
+   border-radius: 22%;
 }
 
 .button.operador{
