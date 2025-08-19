@@ -5,15 +5,27 @@ function escolherNumero(){
             printarInput(event.target.innerHTML)
         })
     }
+   
 }
 
 function printarInput(simbolo){
-    const apertado= document.getElementById("display")
-    if(apertado.value === "0") {
-        apertado.value = simbolo
-    } else {
-        apertado.value += simbolo
+    const display = document.getElementById("display");
+    let valor = display.value;
+    
+    const operadores = /[+\-×÷*/]/;
+    const ehOperador = operadores.test(simbolo);
+    const ultimoEhOperador = operadores.test(valor.slice(-1));
+    
+    if(valor === "0" && !ehOperador) valor = "";
+    if(ehOperador && ultimoEhOperador) valor = valor.slice(0, -1);
+    
+    
+    if(simbolo === ".") {
+        if(valor === "" || ultimoEhOperador) return display.value += "0.";
+        if(valor.split(/[+\-×÷*/]/).pop().includes(".")) return;
     }
+    
+    display.value = valor + simbolo;
 }
 
 function escolherOperador(){
@@ -143,12 +155,17 @@ function ehPrimo(){
 
 function fatorial(){
     const display= document.getElementById("display")
-    let numero= display.value
+    let expressao = display.value;
+    let regex = /(-?\d+\.?\d*)$/;
+    let match = expressao.match(regex);
+    let ultimoNumero = match[1];
+    let numero = parseFloat(ultimoNumero); 
+    
     let resultado=1
     for(let i=2; i<=numero;i++){
         resultado*=i
     }
-    display.value=resultado
+    display.value = expressao.replace(regex, resultado.toString());
     
 }
 
@@ -164,8 +181,11 @@ function radiciacao(){
     display.value = expressao.replace(regex, resultado.toString());
 
 }
+
+
 document.addEventListener("DOMContentLoaded", function (){
     escolherNumero()
     escolherOperador()
     apagar()
+    validarInput()
 })
